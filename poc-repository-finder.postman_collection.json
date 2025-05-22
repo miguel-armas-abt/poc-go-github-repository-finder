@@ -1,0 +1,129 @@
+{
+	"info": {
+		"_postman_id": "95bf91d4-a8ae-47aa-a110-82f6d21d9207",
+		"name": "poc-repository-finder",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33527392"
+	},
+	"item": [
+		{
+			"name": "Find by owner",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{auth-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "traceParent",
+						"value": "{{traceParent}}"
+					},
+					{
+						"key": "channelId",
+						"value": "WEB",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8017/poc/repositories/v1/users/:owner/repos?label=roadmap",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8017",
+					"path": [
+						"poc",
+						"repositories",
+						"v1",
+						"users",
+						":owner",
+						"repos"
+					],
+					"query": [
+						{
+							"key": "label",
+							"value": "roadmap"
+						}
+					],
+					"variable": [
+						{
+							"key": "owner",
+							"value": "miguel-armas-abt"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Insert parameter",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{auth-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "traceParent",
+						"value": "{{traceParent}}"
+					},
+					{
+						"key": "channelId",
+						"value": "WEB",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"repositoryName\": \"roadmap-kubernetes\",\r\n    \"owner\": \"miguel-armas-abt\",\r\n    \"imageUrl\": \"base64\",\r\n    \"label\": \"roadmap\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8017/poc/repositories/v1/parameters",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8017",
+					"path": [
+						"poc",
+						"repositories",
+						"v1",
+						"parameters"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

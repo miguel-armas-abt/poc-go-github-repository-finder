@@ -1,9 +1,17 @@
-FROM golang:1.21.4-alpine
+ARG BINARY=application
 
-WORKDIR /product-v1
+FROM golang:1.23-alpine AS builder
+
+ARG BINARY
+
+WORKDIR /app
+COPY go.mod go.sum ./
+RUN go mod download
 
 COPY . .
-RUN go build -o product-v1
+RUN CGO_ENABLED=0 GOOS=linux go build -o "${BINARY}" ./main.go
 
-EXPOSE 8017
-CMD ["./product-v1"]
+FROM scratch
+COPY --from=builder /app/"${BINARY}" /"${BINARY}"
+EXPOSE 8080
+ENTRYPOINT ["/${BINARY}"]

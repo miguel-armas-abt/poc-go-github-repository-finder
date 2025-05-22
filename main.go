@@ -3,7 +3,9 @@ package main
 import (
 	"log"
 	"net/http"
+	"strings"
 
+	"com.demo.poc/commons/constants"
 	"com.demo.poc/commons/injection"
 	"com.demo.poc/commons/interceptor/restclient"
 	"com.demo.poc/commons/logging"
@@ -21,5 +23,10 @@ func main() {
 	http.DefaultClient.Transport = restclient.NewRestClientInterceptor(http.DefaultTransport, &properties.Properties)
 
 	router := injection.NewEngine()
-	router.Run(properties.Properties.Server.Port)
+
+	serverPort := properties.Properties.Server.Port
+	if !strings.HasPrefix(serverPort, constants.COLON) {
+		serverPort = constants.COLON + serverPort
+	}
+	router.Run(serverPort)
 }

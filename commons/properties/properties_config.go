@@ -18,7 +18,7 @@ func Init() error {
 	reader.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
 	reader.AutomaticEnv()
 
-	reader.BindEnv("server.port", "APPLICATION_PORT")
+	reader.BindEnv("server.port", "PORT")
 	reader.BindEnv("mongodb.uri", "MONGODB_URI")
 	reader.BindEnv("mongodb.database", "MONGODB_DATABASE")
 

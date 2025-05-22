@@ -7,10 +7,11 @@ import (
 	parametersService "com.demo.poc/cmd/parameters/service"
 
 	//repo finder
-	gitHubRepository "com.demo.poc/cmd/products/repository/github"
-	gitHubErrorExtractor "com.demo.poc/cmd/products/repository/github/error"
-	repoRest "com.demo.poc/cmd/products/rest"
-	repoService "com.demo.poc/cmd/products/service"
+	repoHelper "com.demo.poc/cmd/repos/helper"
+	gitHubRepository "com.demo.poc/cmd/repos/repository/github"
+	gitHubErrorExtractor "com.demo.poc/cmd/repos/repository/github/error"
+	repoRest "com.demo.poc/cmd/repos/rest"
+	repoService "com.demo.poc/cmd/repos/service"
 
 	//commons
 	coreConfig "com.demo.poc/commons/config"
@@ -30,6 +31,9 @@ func NewEngine() *gin.Engine {
 
 	props := &properties.Properties
 
+	responseErrorSelector := errorSelector.NewResponseErrorSelector(props)
+	interceptor := errorInterceptor.NewErrorInterceptor(responseErrorSelector)
+
 	restClientErrorSelector := errorSelector.NewRestClientErrorSelector(&properties.Properties)
 	restClientErrorExtractors := []restClientErrors.RestClientErrorExtractor{
 		restClientErrors.DefaultExtractor{},
@@ -38,23 +42,21 @@ func NewEngine() *gin.Engine {
 	restClientErrorHandler := restClientErrors.NewRestCrestclientErrorHandler(restClientErrorSelector, restClientErrorExtractors)
 
 	coreValidator := validations.GetValidator()
-	paramValidator := validations.NewParamValidator(coreValidator)
+	paramValidator := validations.NewParamValidator(coreValidator, responseErrorSelector)
 	bodyValidator := validations.NewBodyValidator(coreValidator)
-
-	responseErrorSelector := errorSelector.NewResponseErrorSelector(props)
-	interceptor := errorInterceptor.NewErrorInterceptor(responseErrorSelector)
 
 	//parameters command
 	mongoClient := coreConfig.NewMongoConnection(props)
 	mongoInstance := mongoClient.Database(props.Mongo.Database)
-	parameterRepository := parameterRepository.NewRepoParameterRepositoryImpl(mongoInstance)
-	parameterCommandService := parametersService.NewRepoParameterCommandServiceImpl(parameterRepository)
-	paramtersRestService := paramtersRest.NewParametersCommandRestService(parameterCommandService, paramValidator, bodyValidator)
+	parameterRepository := parameterRepository.NewParameterRepositoryImpl(mongoInstance)
+	parameterCommandService := parametersService.NewParameterServiceImpl(parameterRepository)
+	paramtersRestService := paramtersRest.NewParameterRestService(parameterCommandService, paramValidator, bodyValidator)
 	paramtersRest.NewRouter(engine, interceptor, paramtersRestService)
 
 	//repo finder
 	githubRepository := gitHubRepository.NewGitHubRepositoryImpl(props, &restClientErrorHandler)
-	repoFinderService := repoService.NewRepoFinderServiceImpl(githubRepository)
+	repoMergeHelper := repoHelper.NewRepoMergeHelper(githubRepository, parameterRepository)
+	repoFinderService := repoService.NewRepoFinderServiceImpl(repoMergeHelper)
 	repoRestService := repoRest.NewRepoFinderRestService(repoFinderService, paramValidator, bodyValidator)
 	repoRest.NewRouter(engine, interceptor, repoRestService)
 

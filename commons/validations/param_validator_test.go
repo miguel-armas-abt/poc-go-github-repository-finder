@@ -5,7 +5,10 @@ import (
 	"net/http/httptest"
 	"testing"
 
+	errorSelector "com.demo.poc/commons/errors/selector"
+	properties "com.demo.poc/commons/properties"
 	"github.com/gin-gonic/gin"
+	"github.com/go-playground/validator/v10"
 	"github.com/stretchr/testify/require"
 )
 
@@ -25,44 +28,54 @@ func setupParamValidatorContext(headers map[string]string) *gin.Context {
 	return context
 }
 
+func stubParamValidator() *ParamValidator {
+	properties := &properties.ApplicationProperties{
+		ProjectType:   properties.PROJECT_TYPE_MS,
+		ErrorMessages: map[string]string{"default": "Error"},
+	}
+	return NewParamValidator(validator.New(), errorSelector.NewResponseErrorSelector(properties))
+}
+
 func TestGivenValidHeaders_WhenValidateParamAndBind_ThenReturnsTrueAndBindsFields(test *testing.T) {
-	// Arrange
+	//Arrange
 	headers := map[string]string{"id": "12345"}
-	context := setupParamValidatorContext(headers)
-	paramValidator := NewParamValidator(Validate)
+	ctx := setupParamValidatorContext(headers)
+	paramValidator := stubParamValidator()
 	var params DummyParams
 
-	// Act
-	isValid := paramValidator.ValidateParamAndBind(context, &params)
+	//Act
+	isValid := paramValidator.ValidateParamAndBind(ctx, &params)
 
-	// Assert
+	//Assert
 	require.True(test, isValid)
 	require.Equal(test, "12345", params.ID)
 }
 
 func TestGivenEmptyHeader_WhenValidateParamAndBind_ThenReturnsFalse(test *testing.T) {
-	// Arrange
+	//Arrange
 	headers := map[string]string{"id": ""}
 	context := setupParamValidatorContext(headers)
-	paramValidator := NewParamValidator(Validate)
+	paramValidator := stubParamValidator()
 	var params DummyParams
 
-	// Act
+	//Act
 	isValid := paramValidator.ValidateParamAndBind(context, &params)
 
-	// Assert
+	//Assert
 	require.False(test, isValid)
+	require.Equal(test, http.StatusBadRequest, context.Writer.Status())
 }
 
 func TestGivenMissingHeader_WhenValidateParamAndBind_ThenReturnsFalse(test *testing.T) {
-	// Arrange
+	//Arrange
 	context := setupParamValidatorContext(map[string]string{})
-	paramValidator := NewParamValidator(Validate)
+	paramValidator := stubParamValidator()
 	var params DummyParams
 
-	// Act
+	//Act
 	isValid := paramValidator.ValidateParamAndBind(context, &params)
 
-	// Assert
+	//Assert
 	require.False(test, isValid)
+	require.Equal(test, http.StatusBadRequest, context.Writer.Status())
 }

@@ -11,6 +11,7 @@ type RequestTemplate struct {
 	Endpoint string            `mapstructure:"endpoint"`
 	Headers  HeaderTemplate    `mapstructure:"headers"`
 	FormData map[string]string `mapstructure:"formData"`
+	Params   map[string]string `mapstructure:"params"`
 }
 
 type HeaderTemplate struct {

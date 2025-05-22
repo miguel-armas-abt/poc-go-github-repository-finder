@@ -28,3 +28,5 @@ restClients:
           timestamp: TIMESTAMP
         tracing:
           traceParent: TRACE_PARENT
+      params:
+        per_page: 100

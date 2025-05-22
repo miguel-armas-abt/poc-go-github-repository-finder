@@ -1,0 +1,53 @@
+package rest
+
+import (
+	"net/http"
+
+	"com.demo.poc/cmd/parameters/dto/request"
+	"com.demo.poc/cmd/parameters/service"
+	utils "com.demo.poc/commons/restserver/utils"
+	"com.demo.poc/commons/validations"
+	headers "com.demo.poc/commons/validations/headers"
+	"github.com/gin-gonic/gin"
+)
+
+type ParameterRestService struct {
+	service        service.ParameterService
+	paramValidator *validations.ParamValidator
+	bodyValidator  *validations.BodyValidator
+}
+
+func NewParameterRestService(
+	service service.ParameterService,
+	paramValidator *validations.ParamValidator,
+	bodyValidator *validations.BodyValidator,
+) *ParameterRestService {
+
+	return &ParameterRestService{
+		service:        service,
+		paramValidator: paramValidator,
+		bodyValidator:  bodyValidator,
+	}
+}
+
+func (rest *ParameterRestService) InsertRepoParameter(ctx *gin.Context) {
+	var defaultHeaders headers.DefaultHeaders
+	if !rest.paramValidator.ValidateParamAndBind(ctx, &defaultHeaders) {
+		return
+	}
+
+	insertRequest, ok := validations.ValidateBodyAndGet[request.ParameterInsertRequest](ctx, rest.bodyValidator)
+	if !ok {
+		return
+	}
+
+	err := rest.service.InsertRepoParameter(ctx.Request.Context(), utils.ExtractHeadersAsMap(ctx.Request.Header), insertRequest)
+
+	if err != nil {
+		ctx.Error(err)
+		ctx.Abort()
+		return
+	}
+
+	ctx.Status(http.StatusCreated)
+}

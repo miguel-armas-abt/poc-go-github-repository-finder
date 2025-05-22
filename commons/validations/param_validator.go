@@ -2,6 +2,7 @@ package validations
 
 import (
 	coreErrors "com.demo.poc/commons/errors/errors"
+	selector "com.demo.poc/commons/errors/selector"
 	restServerUtils "com.demo.poc/commons/restserver/utils"
 
 	"github.com/gin-gonic/gin"
@@ -11,38 +12,45 @@ import (
 
 type ParamValidator struct {
 	coreValidator *validator.Validate
+	errorSelector *selector.ResponseErrorSelector
 }
 
-func NewParamValidator(coreValidator *validator.Validate) *ParamValidator {
-	return &ParamValidator{coreValidator: coreValidator}
+func NewParamValidator(
+	coreValidator *validator.Validate,
+	errorSelector *selector.ResponseErrorSelector) *ParamValidator {
+
+	return &ParamValidator{
+		coreValidator: coreValidator,
+		errorSelector: errorSelector,
+	}
 }
 
-func (paramValidator *ParamValidator) ValidateStruct(params interface{}) error {
-	return paramValidator.coreValidator.Struct(params)
+func (validator *ParamValidator) ValidateStruct(params interface{}) error {
+	return validator.coreValidator.Struct(params)
 }
 
-func (paramValidator *ParamValidator) ValidateParamAndBind(context *gin.Context, params interface{}) bool {
+func (validator *ParamValidator) ValidateParamAndBind(ctx *gin.Context, params interface{}) bool {
 	paramMapper, err := mapstructure.NewDecoder(&mapstructure.DecoderConfig{
 		TagName: "mapstructure",
 		Result:  params,
 	})
 
 	if err != nil {
-		context.Error(coreErrors.NewInvalidFieldError(err.Error()))
-		context.Abort()
+		genericError := coreErrors.NewInvalidFieldError(err.Error())
+		ctx.AbortWithStatusJSON(genericError.HttpStatus, validator.errorSelector.ToErrorDto(genericError))
 		return false
 	}
 
-	paramMap := restServerUtils.ExtractHeadersAsMap(context.Request.Header)
+	paramMap := restServerUtils.ExtractHeadersAsMap(ctx.Request.Header)
 	if err := paramMapper.Decode(paramMap); err != nil {
-		context.Error(coreErrors.NewInvalidFieldError(err.Error()))
-		context.Abort()
+		genericError := coreErrors.NewInvalidFieldError(err.Error())
+		ctx.AbortWithStatusJSON(genericError.HttpStatus, validator.errorSelector.ToErrorDto(genericError))
 		return false
 	}
 
-	if err := paramValidator.ValidateStruct(params); err != nil {
-		context.Error(coreErrors.NewInvalidFieldError(err.Error()))
-		context.Abort()
+	if err := validator.ValidateStruct(params); err != nil {
+		genericError := coreErrors.NewInvalidFieldError(err.Error())
+		ctx.AbortWithStatusJSON(genericError.HttpStatus, validator.errorSelector.ToErrorDto(genericError))
 		return false
 	}
 

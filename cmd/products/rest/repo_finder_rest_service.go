@@ -31,27 +31,26 @@ func NewRepoFinderRestService(
 	}
 }
 
-func (rest *RepoFinderRestService) FindRepositoriesByOwner(context *gin.Context) {
+func (rest *RepoFinderRestService) FindRepositoriesByOwner(ctx *gin.Context) {
 	var defaultHeaders headers.DefaultHeaders
-	if !rest.paramValidator.ValidateParamAndBind(context, &defaultHeaders) {
+	if !rest.paramValidator.ValidateParamAndBind(ctx, &defaultHeaders) {
 		return
 	}
-	headers := utils.ExtractHeadersAsMap(context.Request.Header)
 
-	owner := context.Param("owner")
+	owner := ctx.Param("owner")
 
 	if owner == constants.EMPTY || &owner == nil {
-		context.Error(coreError.NewInvalidFieldError("owner must not be empty"))
+		ctx.Error(coreError.NewInvalidFieldError("owner must not be empty"))
 		return
 	}
 
-	repoList, err := rest.service.FindRepositoriesByOwner(headers, owner)
+	repoList, err := rest.service.FindRepositoriesByOwner(ctx.Request.Context(), utils.ExtractHeadersAsMap(ctx.Request.Header), owner)
 
 	if err != nil {
-		context.Error(err)
-		context.Abort()
+		ctx.Error(err)
+		ctx.Abort()
 		return
 	}
 
-	context.JSON(http.StatusOK, repoList)
+	ctx.JSON(http.StatusOK, repoList)
 }

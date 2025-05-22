@@ -10,13 +10,13 @@ import (
 func NewRouter(
 	engine *gin.Engine,
 	errorInterceptor *errorInterceptor.ErrorInterceptor,
-	productRestService *RepoFinderRestService) *gin.Engine {
+	restService *RepoFinderRestService) *gin.Engine {
 
 	engine.Use(gin.Recovery(), gin.Logger(), errorInterceptor.InterceptError(), restserver.InterceptRestServer(&props.Properties))
 
 	productRouter := engine.Group("/poc/repositories/v1")
 	{
-		productRouter.GET("/users/:owner/repos", productRestService.FindRepositoriesByOwner)
+		productRouter.GET("/users/:owner/repos", restService.FindRepositoriesByOwner)
 	}
 
 	return engine

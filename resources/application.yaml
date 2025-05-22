@@ -11,11 +11,9 @@ logging:
 errorMessages:
   Default: "No hemos podido realizar tu operación. Estamos trabajando para solucionar el inconveniente."
 
-database:
-  user: poc_user
-  password: qwerty
-  host: 127.0.0.1:3306
-  name: db_products
+mongodb:
+  uri: "mongodb+srv://<user>:<password>@cluster0.t2pidzg.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0&authSource=admin"
+  database: repoParameters
 
 restClients:
   github-users:

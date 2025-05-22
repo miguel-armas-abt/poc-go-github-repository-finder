@@ -18,11 +18,9 @@ func Init() error {
 	reader.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
 	reader.AutomaticEnv()
 
-	reader.BindEnv("database.user", "MYSQL_USERNAME")
-	reader.BindEnv("database.password", "MYSQL_PASSWORD")
-	reader.BindEnv("database.host", "MYSQL_HOST")
-	reader.BindEnv("database.name", "DATABASE")
 	reader.BindEnv("server.port", "APPLICATION_PORT")
+	reader.BindEnv("mongodb.uri", "MONGODB_URI")
+	reader.BindEnv("mongodb.database", "MONGODB_DATABASE")
 
 	if err := reader.ReadInConfig(); err != nil {
 		return fmt.Errorf("error reading application.yaml: %w", err)

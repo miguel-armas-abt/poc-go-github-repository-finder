@@ -1,6 +1,7 @@
 package repository
 
 import (
+	"context"
 	"fmt"
 	"net/http"
 
@@ -36,6 +37,7 @@ func NewGitHubRepositoryImpl(
 }
 
 func (repository *gitHubRepositoryImpl) FindRepositoriesByOwner(
+	ctx context.Context,
 	headers map[string]string,
 	owner string) ([]response.RepoResponseWrapper, error) {
 

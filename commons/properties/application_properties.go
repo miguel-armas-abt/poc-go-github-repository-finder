@@ -5,8 +5,8 @@ import (
 
 	"com.demo.poc/commons/constants"
 	coreErrors "com.demo.poc/commons/errors/errors"
-	db "com.demo.poc/commons/properties/database"
 	logging "com.demo.poc/commons/properties/logging"
+	mongoDb "com.demo.poc/commons/properties/mongo"
 	"com.demo.poc/commons/properties/restclient"
 )
 
@@ -15,8 +15,8 @@ type ApplicationProperties struct {
 	ProjectType   ProjectType                      `mapstructure:"projectType"`
 	Logging       logging.LoggingTemplate          `mapstructure:"logging"`
 	ErrorMessages map[string]string                `mapstructure:"errorMessages"`
-	Database      db.DatabaseProperties            `mapstructure:"database"`
 	RestClients   map[string]restclient.RestClient `mapstructure:"restClients"`
+	Mongo         mongoDb.Mongo                    `mapstructure:"mongodb"`
 }
 
 type ServerProperties struct {

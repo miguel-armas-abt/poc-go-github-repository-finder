@@ -15,8 +15,8 @@ func FillHeaders(incoming map[string]string, restClient *template.RestClient) ma
 		headers[key] = value
 	}
 
-	//forwarded
-	for outKey, inKey := range restClient.Request.Headers.Forwarded {
+	//forwarded (inKey → outKey)
+	for inKey, outKey := range restClient.Request.Headers.Forwarded {
 		if val, exists := incoming[inKey]; exists {
 			headers[outKey] = val
 		}

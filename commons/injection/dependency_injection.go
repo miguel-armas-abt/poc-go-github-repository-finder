@@ -1,20 +1,31 @@
 package injection
 
 import (
+	//parameters command
+	parameterRepository "com.demo.poc/cmd/parameters/repository/parameters"
+	paramtersRest "com.demo.poc/cmd/parameters/rest"
+	parametersService "com.demo.poc/cmd/parameters/service"
+
+	//repo finder
 	gitHubRepository "com.demo.poc/cmd/products/repository/github"
 	gitHubErrorExtractor "com.demo.poc/cmd/products/repository/github/error"
-	"com.demo.poc/cmd/products/rest"
-	"com.demo.poc/cmd/products/service"
+	repoRest "com.demo.poc/cmd/products/rest"
+	repoService "com.demo.poc/cmd/products/service"
+
+	//commons
+	coreConfig "com.demo.poc/commons/config"
 	errorSelector "com.demo.poc/commons/errors/selector"
 	errorInterceptor "com.demo.poc/commons/interceptor/errors"
 	properties "com.demo.poc/commons/properties"
 	restClientErrors "com.demo.poc/commons/restclient/errors"
+
 	"com.demo.poc/commons/validations"
 
 	"github.com/gin-gonic/gin"
 )
 
 func NewEngine() *gin.Engine {
+	//commons
 	engine := gin.New()
 
 	props := &properties.Properties
@@ -24,12 +35,7 @@ func NewEngine() *gin.Engine {
 		restClientErrors.DefaultExtractor{},
 		gitHubErrorExtractor.GitHubErrorExtractor{},
 	}
-
 	restClientErrorHandler := restClientErrors.NewRestCrestclientErrorHandler(restClientErrorSelector, restClientErrorExtractors)
-	// dbConnection := coreConfig.NewDatabaseConnection()
-
-	githubRepository := gitHubRepository.NewGitHubRepositoryImpl(props, &restClientErrorHandler)
-	svc := service.NewRepoFinderServiceImpl(githubRepository)
 
 	coreValidator := validations.GetValidator()
 	paramValidator := validations.NewParamValidator(coreValidator)
@@ -38,8 +44,19 @@ func NewEngine() *gin.Engine {
 	responseErrorSelector := errorSelector.NewResponseErrorSelector(props)
 	interceptor := errorInterceptor.NewErrorInterceptor(responseErrorSelector)
 
-	restService := rest.NewRepoFinderRestService(svc, paramValidator, bodyValidator)
-	rest.NewRouter(engine, interceptor, restService)
+	//parameters command
+	mongoClient := coreConfig.NewMongoConnection(props)
+	mongoInstance := mongoClient.Database(props.Mongo.Database)
+	parameterRepository := parameterRepository.NewRepoParameterRepositoryImpl(mongoInstance)
+	parameterCommandService := parametersService.NewRepoParameterCommandServiceImpl(parameterRepository)
+	paramtersRestService := paramtersRest.NewParametersCommandRestService(parameterCommandService, paramValidator, bodyValidator)
+	paramtersRest.NewRouter(engine, interceptor, paramtersRestService)
+
+	//repo finder
+	githubRepository := gitHubRepository.NewGitHubRepositoryImpl(props, &restClientErrorHandler)
+	repoFinderService := repoService.NewRepoFinderServiceImpl(githubRepository)
+	repoRestService := repoRest.NewRepoFinderRestService(repoFinderService, paramValidator, bodyValidator)
+	repoRest.NewRouter(engine, interceptor, repoRestService)
 
 	return engine
 }

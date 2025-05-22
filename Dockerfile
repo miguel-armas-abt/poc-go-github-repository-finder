@@ -1,17 +1,15 @@
-ARG BINARY=application
-
 FROM golang:1.23-alpine AS builder
-
-ARG BINARY
-
 WORKDIR /app
+RUN apk add --no-cache ca-certificates
 COPY go.mod go.sum ./
 RUN go mod download
 
 COPY . .
-RUN CGO_ENABLED=0 GOOS=linux go build -o "${BINARY}" ./main.go
+RUN CGO_ENABLED=0 GOOS=linux go build -o runner ./main.go
 
 FROM scratch
-COPY --from=builder /app/"${BINARY}" /"${BINARY}"
+COPY --from=builder /app/runner /runner
+COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
+COPY --from=builder /app/resources/application.yaml /resources/application.yaml
 EXPOSE 8080
-ENTRYPOINT ["/${BINARY}"]
+ENTRYPOINT ["/runner"]

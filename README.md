@@ -11,12 +11,12 @@
 
 1. Generar binario
 ```sh
-go build ./main.go
+go build -o runner ./main.go
 ```
 
 2. Configurar las [variables de entorno](./variables_local.env) en el IDE.
 
-2. Ejecutar aplicación
+3. Ejecutar aplicación
 
 
 ---

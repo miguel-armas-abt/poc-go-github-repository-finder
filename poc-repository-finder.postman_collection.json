@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "95bf91d4-a8ae-47aa-a110-82f6d21d9207",
+		"_postman_id": "aff5981d-0f8a-4f56-aab5-fc9e72a21d4c",
 		"name": "poc-repository-finder",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "33527392"
+		"_exporter_id": "13773998"
 	},
 	"item": [
 		{
@@ -44,12 +44,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8017/poc/repositories/v1/users/:owner/repos?label=roadmap",
+					"raw": "http://localhost:8080/poc/repositories/v1/users/:owner/repos?label=roadmap",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8017",
+					"port": "8080",
 					"path": [
 						"poc",
 						"repositories",
@@ -109,12 +109,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8017/poc/repositories/v1/parameters",
+					"raw": "http://localhost:8080/poc/repositories/v1/parameters",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8017",
+					"port": "8080",
 					"path": [
 						"poc",
 						"repositories",

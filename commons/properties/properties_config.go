@@ -1,6 +1,7 @@
 package properties
 
 import (
+	"bytes"
 	"fmt"
 	"strings"
 
@@ -9,21 +10,24 @@ import (
 
 var Properties ApplicationProperties
 
-func Init() {
+func Init(yamlBytes []byte) {
 	reader := viper.New()
-	reader.SetConfigName("application")
 	reader.SetConfigType("yaml")
-	reader.AddConfigPath(".")
-	reader.AddConfigPath("./resources")
+
+	if err := reader.ReadConfig(bytes.NewBuffer(yamlBytes)); err != nil {
+		panic(fmt.Sprintf("Error reading embedded application.yaml: %v", err))
+	}
+
 	reader.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
 	reader.AutomaticEnv()
 
-	reader.BindEnv("server.port", "PORT")
-	reader.BindEnv("mongodb.uri", "MONGODB_URI")
-	reader.BindEnv("mongodb.database", "MONGODB_DATABASE")
-
-	if err := reader.ReadInConfig(); err != nil {
-		panic(fmt.Sprintf("Error reading application.yaml: %v", err))
+	environmentVariables := []struct{ key, env string }{
+		{"server.port", "PORT"},
+		{"mongodb.uri", "MONGODB_URI"},
+		{"mongodb.database", "MONGODB_DATABASE"},
+	}
+	for _, variable := range environmentVariables {
+		reader.BindEnv(variable.key, variable.env)
 	}
 
 	if err := reader.Unmarshal(&Properties); err != nil {

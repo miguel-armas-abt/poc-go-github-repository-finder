@@ -9,7 +9,7 @@ import (
 
 var Properties ApplicationProperties
 
-func Init() error {
+func Init() {
 	reader := viper.New()
 	reader.SetConfigName("application")
 	reader.SetConfigType("yaml")
@@ -23,12 +23,10 @@ func Init() error {
 	reader.BindEnv("mongodb.database", "MONGODB_DATABASE")
 
 	if err := reader.ReadInConfig(); err != nil {
-		return fmt.Errorf("error reading application.yaml: %w", err)
+		panic(fmt.Sprintf("Error reading application.yaml: %v", err))
 	}
 
 	if err := reader.Unmarshal(&Properties); err != nil {
-		return fmt.Errorf("error deserializing config: %w", err)
+		panic(fmt.Sprintf("Error deserializing config: %v", err))
 	}
-
-	return nil
 }

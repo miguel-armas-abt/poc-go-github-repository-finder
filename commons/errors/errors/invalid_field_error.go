@@ -6,6 +6,7 @@ import (
 	errorDto "com.demo.poc/commons/errors/dto"
 )
 
+// business and bad requests: 01.02.xx
 func NewInvalidFieldError(message string) errorDto.GenericError {
 	return errorDto.GenericError{
 		HttpStatus: http.StatusBadRequest,

@@ -1,6 +1,7 @@
 package main
 
 import (
+	_ "embed"
 	"strings"
 
 	"com.demo.poc/commons/constants"
@@ -8,10 +9,11 @@ import (
 	properties "com.demo.poc/commons/properties"
 )
 
-var engine = injection.InitEngine()
+//go:embed resources/application.yaml
+var applicationYAML []byte
 
 func main() {
-	router := engine
+	router := injection.NewEngine(applicationYAML)
 
 	serverPort := properties.Properties.Server.Port
 	if !strings.HasPrefix(serverPort, constants.COLON) {

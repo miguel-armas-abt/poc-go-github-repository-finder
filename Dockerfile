@@ -10,6 +10,5 @@ RUN CGO_ENABLED=0 GOOS=linux go build -o runner ./main.go
 FROM scratch
 COPY --from=builder /app/runner /runner
 COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
-COPY --from=builder /app/resources/application.yaml /resources/application.yaml
 EXPOSE 8080
 ENTRYPOINT ["/runner"]

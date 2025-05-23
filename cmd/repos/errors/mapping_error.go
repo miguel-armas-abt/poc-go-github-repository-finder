@@ -6,12 +6,12 @@ import (
 	errorDto "com.demo.poc/commons/errors/dto"
 )
 
-// no such properties and components: 01.01.xx
-func NoSuchRestClientError(message string) errorDto.GenericError {
+// system: 01.00.xx
+func NewMappingError(message string) errorDto.GenericError {
 	return errorDto.GenericError{
 		HttpStatus: http.StatusInternalServerError,
 		Origin:     errorDto.ERROR_ORIGIN_OWN,
-		Code:       "01.01.01",
+		Code:       "01.00.01",
 		Message:    message,
 	}
 }

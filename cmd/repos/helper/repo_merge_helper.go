@@ -66,9 +66,14 @@ func (helper *RepoMergeHelper) MergeRepositoriesByOwnerAndLabel(
 	var count int = 0
 	for _, repo := range repositories {
 		if document, exists := parameterMap[repo.Name]; exists {
-			currentResponse := mapper.ToResponseDto(repo)
-			currentResponse.ImageUrl = document.ImageUrl
-			result[count] = currentResponse
+			response, err := mapper.ToResponseDto(repo)
+
+			if err != nil {
+				return nil, err
+			}
+
+			response.ImageUrl = document.ImageUrl
+			result[count] = *response
 			count++
 		}
 

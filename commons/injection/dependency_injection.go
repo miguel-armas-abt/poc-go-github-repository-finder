@@ -57,7 +57,7 @@ func NewEngine(yamlBytes []byte) *gin.Engine {
 	mongoClient := coreConfig.NewMongoConnection(props)
 	mongoInstance := mongoClient.Database(props.Mongo.Database)
 	parameterRepository := parameterRepository.NewParameterRepositoryImpl(mongoInstance)
-	parameterCommandService := parametersService.NewParameterServiceImpl(parameterRepository)
+	parameterCommandService := parametersService.NewParameterServiceImpl(parameterRepository, *props)
 	paramtersRestService := paramtersRest.NewParameterRestService(parameterCommandService, paramValidator, bodyValidator)
 	paramtersRest.NewRouter(engine, interceptor, paramtersRestService)
 

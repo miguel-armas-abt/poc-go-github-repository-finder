@@ -11,12 +11,13 @@ import (
 )
 
 type ApplicationProperties struct {
-	Server        ServerProperties                 `mapstructure:"server"`
-	ProjectType   ProjectType                      `mapstructure:"projectType"`
-	Logging       logging.LoggingTemplate          `mapstructure:"logging"`
-	ErrorMessages map[string]string                `mapstructure:"errorMessages"`
-	RestClients   map[string]restclient.RestClient `mapstructure:"restClients"`
-	Mongo         mongoDb.Mongo                    `mapstructure:"mongodb"`
+	Server            ServerProperties                 `mapstructure:"server"`
+	ProjectType       ProjectType                      `mapstructure:"projectType"`
+	Logging           logging.LoggingTemplate          `mapstructure:"logging"`
+	ErrorMessages     map[string]string                `mapstructure:"errorMessages"`
+	RestClients       map[string]restclient.RestClient `mapstructure:"restClients"`
+	Mongo             mongoDb.Mongo                    `mapstructure:"mongodb"`
+	MultimediaStorage string                           `mapstructure:"multimediaStorage"`
 }
 
 type ServerProperties struct {

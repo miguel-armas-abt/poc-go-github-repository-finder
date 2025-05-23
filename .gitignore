@@ -11,3 +11,4 @@ runner
 
 ### VS Code ###
 .vscode/
+.vercel

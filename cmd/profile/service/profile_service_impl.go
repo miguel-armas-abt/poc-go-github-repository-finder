@@ -53,7 +53,8 @@ func (service *profileServiceImpl) FindByUsername(
 		return nil, err
 	}
 
-	response, err := mapper.ToResponse(*profile)
+	multimediaStorage := service.props.MultimediaStorage
+	response, err := mapper.ToResponse(*profile, &multimediaStorage)
 	if err != nil {
 		return nil, err
 	}

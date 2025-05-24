@@ -3,6 +3,7 @@ package response
 type ProfileResponse struct {
 	FullName    string       `json:"fullName"`
 	CvUrl       string       `json:"cvUrl"`
+	PhotoUrl    string       `json:"photoUrl"`
 	RepoFilters []RepoFilter `json:"repoFilters"`
 }
 

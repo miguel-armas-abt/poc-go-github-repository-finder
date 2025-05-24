@@ -3,45 +3,45 @@ package rest
 import (
 	"net/http"
 
-	"com.demo.poc/cmd/parameters/dto/request"
-	"com.demo.poc/cmd/parameters/service"
+	"com.demo.poc/cmd/repos/dto/request"
+	"com.demo.poc/cmd/repos/service"
 	utils "com.demo.poc/commons/restserver/utils"
 	"com.demo.poc/commons/validations"
 	headers "com.demo.poc/commons/validations/headers"
 	"github.com/gin-gonic/gin"
 )
 
-type ParameterRestService struct {
+type RepoMetadataRestService struct {
 	service        service.ParameterService
 	paramValidator *validations.ParamValidator
 	bodyValidator  *validations.BodyValidator
 }
 
-func NewParameterRestService(
+func NewRepoMetadataRestService(
 	service service.ParameterService,
 	paramValidator *validations.ParamValidator,
 	bodyValidator *validations.BodyValidator,
-) *ParameterRestService {
+) *RepoMetadataRestService {
 
-	return &ParameterRestService{
+	return &RepoMetadataRestService{
 		service:        service,
 		paramValidator: paramValidator,
 		bodyValidator:  bodyValidator,
 	}
 }
 
-func (rest *ParameterRestService) InsertRepoParameter(ctx *gin.Context) {
+func (rest *RepoMetadataRestService) InsertRepoMetadata(ctx *gin.Context) {
 	var defaultHeaders headers.DefaultHeaders
 	if !rest.paramValidator.ValidateParamAndBind(ctx, &defaultHeaders) {
 		return
 	}
 
-	insertRequest, ok := validations.ValidateBodyAndGet[request.ParameterInsertRequest](ctx, rest.bodyValidator)
+	insertRequest, ok := validations.ValidateBodyAndGet[request.RepoMetadataInsertRequest](ctx, rest.bodyValidator)
 	if !ok {
 		return
 	}
 
-	err := rest.service.InsertRepoParameter(ctx.Request.Context(), utils.ExtractHeadersAsMap(ctx.Request.Header), insertRequest)
+	err := rest.service.InsertRepoMetadata(ctx.Request.Context(), utils.ExtractHeadersAsMap(ctx.Request.Header), insertRequest)
 
 	if err != nil {
 		ctx.Error(err)

@@ -30,24 +30,24 @@ func NewRepoFinderRestService(
 	}
 }
 
-func (rest *RepoFinderRestService) FindRepositoriesByOwner(ctx *gin.Context) {
+func (rest *RepoFinderRestService) FindRepositoriesByProfile(ctx *gin.Context) {
 	var defaultHeaders headers.DefaultHeaders
 	if !rest.paramValidator.ValidateParamAndBind(ctx, &defaultHeaders) {
 		return
 	}
 
-	owner := ctx.Param("owner")
+	profile := ctx.Param("profile")
 	label := ctx.Query("label")
 
 	var inputParams params.RepoFinderParams
-	inputParams.Owner = owner
+	inputParams.Profile = profile
 	inputParams.Label = label
 
 	if !rest.paramValidator.ValidateParamAndBind(ctx, &inputParams) {
 		return
 	}
 
-	repoList, err := rest.service.FindRepositoriesByOwnerAndLabel(ctx.Request.Context(), utils.ExtractHeadersAsMap(ctx.Request.Header), &inputParams)
+	repoList, err := rest.service.FindRepositoriesByProfileAndLabel(ctx.Request.Context(), utils.ExtractHeadersAsMap(ctx.Request.Header), &inputParams)
 
 	if err != nil {
 		ctx.Error(err)

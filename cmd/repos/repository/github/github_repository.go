@@ -7,8 +7,8 @@ import (
 )
 
 type GitHubRepository interface {
-	FindRepositoriesByOwner(
+	FindRepositoriesByProfile(
 		ctx context.Context,
 		headers map[string]string,
-		owner string) ([]response.RepoResponseWrapper, error)
+		profile string) ([]response.RepoResponseWrapper, error)
 }

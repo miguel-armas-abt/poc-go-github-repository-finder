@@ -20,12 +20,12 @@ func NewRepoFinderServiceImpl(
 	}
 }
 
-func (service *repoFinderServiceImpl) FindRepositoriesByOwnerAndLabel(
+func (service *repoFinderServiceImpl) FindRepositoriesByProfileAndLabel(
 	ctx context.Context,
 	headers map[string]string,
 	params *params.RepoFinderParams) ([]response.RepoResponseDto, error) {
 
-	repositories, err := service.repoMergeHelper.MergeRepositoriesByOwnerAndLabel(ctx, headers, params)
+	repositories, err := service.repoMergeHelper.MergeRepositoriesByProfileAndLabel(ctx, headers, params)
 	if err != nil {
 		return nil, err
 	}

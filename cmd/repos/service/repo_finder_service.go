@@ -8,7 +8,7 @@ import (
 )
 
 type RepoFinderService interface {
-	FindRepositoriesByOwnerAndLabel(
+	FindRepositoriesByProfileAndLabel(
 		ctx context.Context,
 		headers map[string]string,
 		params *params.RepoFinderParams) ([]response.RepoResponseDto, error)

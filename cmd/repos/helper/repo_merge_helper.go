@@ -5,23 +5,23 @@ import (
 
 	"golang.org/x/sync/errgroup"
 
-	paramRepository "com.demo.poc/cmd/parameters/repository/parameters"
-	paramDocument "com.demo.poc/cmd/parameters/repository/parameters/document"
 	dto "com.demo.poc/cmd/repos/dto/response"
 	"com.demo.poc/cmd/repos/mapper"
 	params "com.demo.poc/cmd/repos/params"
 	repoRepository "com.demo.poc/cmd/repos/repository/github"
 	repoWrapper "com.demo.poc/cmd/repos/repository/github/wrapper/response"
+	paramRepository "com.demo.poc/cmd/repos/repository/metadata"
+	paramDocument "com.demo.poc/cmd/repos/repository/metadata/document"
 )
 
 type RepoMergeHelper struct {
 	gitHubRepository    repoRepository.GitHubRepository
-	parameterRepository paramRepository.ParameterRepository
+	parameterRepository paramRepository.RepoMetadataRepository
 }
 
 func NewRepoMergeHelper(
 	gitHubRepository repoRepository.GitHubRepository,
-	parameterRepository paramRepository.ParameterRepository,
+	parameterRepository paramRepository.RepoMetadataRepository,
 ) *RepoMergeHelper {
 
 	return &RepoMergeHelper{
@@ -30,7 +30,7 @@ func NewRepoMergeHelper(
 	}
 }
 
-func (helper *RepoMergeHelper) MergeRepositoriesByOwnerAndLabel(
+func (helper *RepoMergeHelper) MergeRepositoriesByProfileAndLabel(
 	ctx context.Context,
 	headers map[string]string,
 	params *params.RepoFinderParams) ([]dto.RepoResponseDto, error) {
@@ -38,17 +38,17 @@ func (helper *RepoMergeHelper) MergeRepositoriesByOwnerAndLabel(
 	var (
 		group        errgroup.Group
 		repositories []repoWrapper.RepoResponseWrapper
-		parameters   []*paramDocument.ParameterDocument
+		parameters   []*paramDocument.RepoMetadataDocument
 		err          error
 	)
 
 	group.Go(func() error {
-		repositories, err = helper.gitHubRepository.FindRepositoriesByOwner(ctx, headers, params.Owner)
+		repositories, err = helper.gitHubRepository.FindRepositoriesByProfile(ctx, headers, params.Profile)
 		return err
 	})
 
 	group.Go(func() error {
-		parameters, err = helper.parameterRepository.FindByOwnerAndLabel(ctx, params)
+		parameters, err = helper.parameterRepository.FindByProfileAndLabel(ctx, params)
 		return err
 	})
 
@@ -56,7 +56,7 @@ func (helper *RepoMergeHelper) MergeRepositoriesByOwnerAndLabel(
 		return nil, err
 	}
 
-	parameterMap := make(map[string]*paramDocument.ParameterDocument, len(parameters))
+	parameterMap := make(map[string]*paramDocument.RepoMetadataDocument, len(parameters))
 	for _, param := range parameters {
 		parameterMap[param.RepositoryName] = param
 	}

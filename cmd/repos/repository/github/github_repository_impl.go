@@ -37,10 +37,10 @@ func NewGitHubRepositoryImpl(
 	}
 }
 
-func (repository *gitHubRepositoryImpl) FindRepositoriesByOwner(
+func (repository *gitHubRepositoryImpl) FindRepositoriesByProfile(
 	ctx context.Context,
 	headers map[string]string,
-	owner string) ([]response.RepoResponseWrapper, error) {
+	profile string) ([]response.RepoResponseWrapper, error) {
 
 	restClient, err := properties.Properties.SearchRestClient(SERVICE_NAME)
 	if err != nil {
@@ -55,7 +55,7 @@ func (repository *gitHubRepositoryImpl) FindRepositoriesByOwner(
 		R().
 		SetHeaders(filler.FillHeaders(headers, restClient)).
 		SetResult(&result).
-		Get(fmt.Sprintf("/%s/repos?per_page=%s", owner, perPage))
+		Get(fmt.Sprintf("/%s/repos?per_page=%s", profile, perPage))
 
 	if err != nil {
 		return nil, err

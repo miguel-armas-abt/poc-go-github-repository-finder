@@ -1,8 +1,8 @@
 package document
 
-type ParameterDocument struct {
+type RepoMetadataDocument struct {
 	RepositoryName string `bson:"repositoryName"`
-	Owner          string `bson:"owner"`
+	Profile        string `bson:"profile"`
 	ImageUrl       string `bson:"imageUrl"`
 	Label          string `bson:"label"`
 }

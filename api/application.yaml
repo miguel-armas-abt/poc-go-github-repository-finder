@@ -31,4 +31,4 @@ restClients:
       params:
         per_page: 100
 
-multimediaStorage: https://raw.githubusercontent.com/$USER/multimedia-storage/main/repository-finder/img/$REPOSITORY_NAME.png
+multimediaStorage: https://raw.githubusercontent.com/$USER/multimedia-storage/main/repository-finder

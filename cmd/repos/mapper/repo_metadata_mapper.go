@@ -5,6 +5,7 @@ import (
 
 	requestDto "com.demo.poc/cmd/repos/dto/request"
 	"com.demo.poc/cmd/repos/repository/metadata/document"
+	"com.demo.poc/commons/constants"
 	repoErrors "com.demo.poc/commons/errors/errors"
 	"github.com/mitchellh/mapstructure"
 )
@@ -17,7 +18,7 @@ func ToDocument(request requestDto.RepoMetadataInsertRequest, multimediaStorage 
 	}
 
 	*multimediaStorage = strings.ReplaceAll(*multimediaStorage, "$USER", request.Profile)
-	*multimediaStorage = *multimediaStorage + "/img/" + request.RepositoryName + ".png"
+	*multimediaStorage = *multimediaStorage + constants.SLASH + request.Profile + "/img/" + request.RepositoryName + ".png"
 	result.ImageUrl = *multimediaStorage
 
 	return &result, nil

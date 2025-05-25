@@ -4,6 +4,8 @@ type ProfileResponse struct {
 	FullName    string       `json:"fullName"`
 	CvUrl       string       `json:"cvUrl"`
 	PhotoUrl    string       `json:"photoUrl"`
+	GitHubUrl   string       `json:"gitHubUrl"`
+	LinkedinUrl string       `json:"linkedinUrl"`
 	RepoFilters []RepoFilter `json:"repoFilters"`
 }
 

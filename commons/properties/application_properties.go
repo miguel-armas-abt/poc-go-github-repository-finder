@@ -18,6 +18,7 @@ type ApplicationProperties struct {
 	RestClients       map[string]restclient.RestClient `mapstructure:"restClients"`
 	Mongo             mongoDb.Mongo                    `mapstructure:"mongodb"`
 	MultimediaStorage string                           `mapstructure:"multimediaStorage"`
+	GitHubDomain      string                           `mapstructure:"gitHubDomain"`
 }
 
 type ServerProperties struct {

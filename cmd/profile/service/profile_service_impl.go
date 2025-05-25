@@ -31,7 +31,8 @@ func (service *profileServiceImpl) InsertProfile(
 	insertRequest request.ProfileInsertRequest) error {
 
 	multimediaStorage := service.props.MultimediaStorage
-	request, errorMapper := mapper.ToDocument(insertRequest, &multimediaStorage)
+	gitHubDomain := service.props.GitHubDomain
+	request, errorMapper := mapper.ToDocument(insertRequest, &multimediaStorage, &gitHubDomain)
 	if errorMapper != nil {
 		return errorMapper
 	}

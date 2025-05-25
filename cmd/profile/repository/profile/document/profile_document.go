@@ -4,6 +4,8 @@ type ProfileDocument struct {
 	Username    string       `bson:"username"`
 	FullName    string       `bson:"fullName"`
 	CvUrl       string       `bson:"cvUrl"`
+	GitHubUrl   string       `bson:"gitHubUrl"`
+	LinkedinUrl string       `bson:"linkedinUrl"`
 	RepoFilters []RepoFilter `bson:"repoFilters"`
 }
 

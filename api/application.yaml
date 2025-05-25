@@ -32,3 +32,4 @@ restClients:
         per_page: 100
 
 multimediaStorage: https://raw.githubusercontent.com/$USER/multimedia-storage/main/repository-finder
+gitHubDomain: https://github.com

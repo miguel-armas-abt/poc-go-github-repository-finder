@@ -10,7 +10,12 @@ import (
 	"github.com/mitchellh/mapstructure"
 )
 
-func ToDocument(request requestDto.ProfileInsertRequest, multimediaStorage *string) (*document.ProfileDocument, error) {
+func ToDocument(
+	request requestDto.ProfileInsertRequest,
+	multimediaStorage *string,
+	gitHubDomain *string,
+) (*document.ProfileDocument, error) {
+
 	var result document.ProfileDocument
 
 	if err := mapstructure.Decode(request, &result); err != nil {
@@ -20,6 +25,8 @@ func ToDocument(request requestDto.ProfileInsertRequest, multimediaStorage *stri
 	*multimediaStorage = strings.ReplaceAll(*multimediaStorage, "$USER", request.Username)
 	*multimediaStorage = *multimediaStorage + constants.SLASH + request.Username + "/pdf/" + request.CvName + ".pdf"
 	result.CvUrl = *multimediaStorage
+
+	result.GitHubUrl = *gitHubDomain + constants.SLASH + request.Username
 
 	return &result, nil
 }

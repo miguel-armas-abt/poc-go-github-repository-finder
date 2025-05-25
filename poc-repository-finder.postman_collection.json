@@ -7,7 +7,7 @@
 	},
 	"item": [
 		{
-			"name": "Find by owner",
+			"name": "Find repos by profile and label",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -44,7 +44,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/poc/repositories/v1/users/:owner/repos?label=roadmap",
+					"raw": "http://localhost:8080/poc/repositories/v1/users/:profile/repos?label=roadmap",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -55,7 +55,7 @@
 						"repositories",
 						"v1",
 						"users",
-						":owner",
+						":profile",
 						"repos"
 					],
 					"query": [
@@ -66,8 +66,8 @@
 					],
 					"variable": [
 						{
-							"key": "owner",
-							"value": "miguel-armas-abt"
+							"key": "profile",
+							"value": "miguelarmasabt"
 						}
 					]
 				}
@@ -75,7 +75,7 @@
 			"response": []
 		},
 		{
-			"name": "Insert parameter",
+			"name": "Insert repo metadata",
 			"request": {
 				"auth": {
 					"type": "bearer",
@@ -101,7 +101,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"repositoryName\": \"roadmap-kubernetes\",\r\n    \"owner\": \"miguel-armas-abt\",\r\n    \"imageUrl\": \"base64\",\r\n    \"label\": \"roadmap\"\r\n}",
+					"raw": "{\r\n    \"repositoryName\": \"roadmap-kafka\",\r\n    \"profile\": \"miguel-armas-abt\",\r\n    \"label\": \"roadmap\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -109,7 +109,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/poc/repositories/v1/parameters",
+					"raw": "http://localhost:8080/poc/repositories/v1/metadata",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -119,7 +119,113 @@
 						"poc",
 						"repositories",
 						"v1",
-						"parameters"
+						"metadata"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Insert profile",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{auth-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "traceParent",
+						"value": "{{traceParent}}"
+					},
+					{
+						"key": "channelId",
+						"value": "WEB",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"miguel-armas-abt\",\r\n    \"fullName\": \"Miguel Armas\",\r\n    \"CvName\": \"CV_ARMAS_ABT_MIGUEL\",\r\n    \"linkedinUrl\": \"https://www.linkedin.com/in/miguel-armas-abt/\",\r\n    \"repoFilters\": [\r\n        {\r\n            \"key\": \"advanced\",\r\n            \"description\": \"Avanzado\",\r\n            \"summary\": \"Microservicios y reactividad\",\r\n            \"priority\": 1\r\n        },\r\n        {\r\n            \"key\": \"medium\",\r\n            \"description\": \"Intermedio\",\r\n            \"summary\": \"APIs RESTful con frameworks modernos\",\r\n            \"priority\": 2\r\n        },\r\n        {\r\n            \"key\": \"begineer\",\r\n            \"description\": \"Principiante\",\r\n            \"summary\": \"Diseño de software\",\r\n            \"priority\": 3\r\n        },\r\n        {\r\n            \"key\": \"roadmap\",\r\n            \"description\": \"Rutas de aprendizaje\",\r\n            \"summary\": \"Guías/Comandos de las principales tecnologías\",\r\n            \"priority\": 4\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/poc/repositories/v1/profiles",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"poc",
+						"repositories",
+						"v1",
+						"profiles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find profile by username",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{auth-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "traceParent",
+						"value": "{{traceParent}}"
+					},
+					{
+						"key": "channelId",
+						"value": "WEB",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/poc/repositories/v1/profiles/miguel-armas-abt",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"poc",
+						"repositories",
+						"v1",
+						"profiles",
+						"miguel-armas-abt"
 					]
 				}
 			},

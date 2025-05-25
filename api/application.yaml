@@ -13,7 +13,7 @@ errorMessages:
 
 mongodb:
   uri: "mongodb+srv://<user>:<password>@cluster0.t2pidzg.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0&authSource=admin"
-  database: repoParameters
+  database: githubReposDb
 
 restClients:
   github-users:

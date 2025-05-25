@@ -38,7 +38,11 @@ func NewEngine(yamlBytes []byte) *gin.Engine {
 		interceptor.InterceptError(),
 		restserver.InterceptRestServer(props),
 		cors.New(cors.Config{
-			AllowOrigins:     []string{"http://localhost:63342", "https://repository-finder.vercel.app"},
+			AllowOrigins: []string{
+				"http://localhost:63342",
+				"https://repository-finder.vercel.app",
+				"https://miguel-armas-abt.github.io",
+			},
 			AllowMethods:     []string{"GET", "POST", "OPTIONS"},
 			AllowHeaders:     []string{"Content-Type", "traceParent", "channelId"},
 			ExposeHeaders:    []string{"Content-Length"},

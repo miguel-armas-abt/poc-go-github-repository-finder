@@ -18,7 +18,7 @@ func ToDocument(request requestDto.RepoMetadataInsertRequest, multimediaStorage 
 	}
 
 	*multimediaStorage = strings.ReplaceAll(*multimediaStorage, "$USER", request.Profile)
-	*multimediaStorage = *multimediaStorage + constants.SLASH + request.Profile + "/img/" + request.RepositoryName + ".png"
+	*multimediaStorage = *multimediaStorage + constants.SLASH + request.Profile + "/img/" + request.RepositoryName + ".webp"
 	result.ImageUrl = *multimediaStorage
 
 	return &result, nil

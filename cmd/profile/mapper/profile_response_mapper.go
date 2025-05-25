@@ -18,7 +18,7 @@ func ToResponse(document document.ProfileDocument, multimediaStorage *string) (*
 	}
 
 	*multimediaStorage = strings.ReplaceAll(*multimediaStorage, "$USER", document.Username)
-	*multimediaStorage = *multimediaStorage + constants.SLASH + document.Username + "/img/" + document.Username + ".png"
+	*multimediaStorage = *multimediaStorage + constants.SLASH + document.Username + "/img/" + document.Username + ".webp"
 	result.PhotoUrl = *multimediaStorage
 
 	return &result, nil

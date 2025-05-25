@@ -1,5 +1,8 @@
 server:
   port: ":8080"
+  corsOrigins:
+    - https://repository-finder.vercel.app
+    - https://miguel-armas-abt.github.io
 
 projectType: MS
 

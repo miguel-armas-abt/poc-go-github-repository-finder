@@ -22,7 +22,8 @@ type ApplicationProperties struct {
 }
 
 type ServerProperties struct {
-	Port string `mapstructure:"port"`
+	Port        string   `mapstructure:"port"`
+	CorsOrigins []string `mapstructure:"corsOrigins"`
 }
 
 func (properties *ApplicationProperties) IsLoggerEnabled(logType string) bool {

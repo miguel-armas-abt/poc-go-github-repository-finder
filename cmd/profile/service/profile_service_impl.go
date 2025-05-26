@@ -7,7 +7,7 @@ import (
 	"com.demo.poc/cmd/profile/dto/response"
 	"com.demo.poc/cmd/profile/mapper"
 	repository "com.demo.poc/cmd/profile/repository/profile"
-	"com.demo.poc/commons/properties"
+	"com.demo.poc/commons/custom/properties"
 )
 
 type profileServiceImpl struct {

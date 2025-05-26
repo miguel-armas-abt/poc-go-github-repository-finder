@@ -9,9 +9,9 @@ import (
 
 	errorWrapper "com.demo.poc/cmd/repos/repository/github/error"
 	"com.demo.poc/cmd/repos/repository/github/wrapper/response"
-	"com.demo.poc/commons/properties"
-	restClientErrors "com.demo.poc/commons/restclient/errors"
-	"com.demo.poc/commons/restclient/filler"
+	restClientErrors "com.demo.poc/commons/core/restclient/errors"
+	"com.demo.poc/commons/core/restclient/filler"
+	"com.demo.poc/commons/custom/properties"
 )
 
 const SERVICE_NAME = "github-users"

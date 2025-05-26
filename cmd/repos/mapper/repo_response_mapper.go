@@ -4,7 +4,7 @@ import (
 	"com.demo.poc/cmd/repos/dto/response"
 	wrapper "com.demo.poc/cmd/repos/repository/github/wrapper/response"
 	"com.demo.poc/cmd/repos/utils"
-	repoErrors "com.demo.poc/commons/errors/errors"
+	repoErrors "com.demo.poc/commons/core/errors/errors"
 	"github.com/mitchellh/mapstructure"
 )
 

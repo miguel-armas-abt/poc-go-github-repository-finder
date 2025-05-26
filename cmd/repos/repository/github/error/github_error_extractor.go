@@ -3,7 +3,7 @@ package error
 import (
 	"encoding/json"
 
-	"com.demo.poc/commons/constants"
+	"com.demo.poc/commons/core/constants"
 )
 
 type GitHubErrorExtractor struct{}

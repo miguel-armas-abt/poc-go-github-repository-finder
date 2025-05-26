@@ -5,11 +5,11 @@ import (
 
 	"com.demo.poc/cmd/profile/dto/request"
 	"com.demo.poc/cmd/profile/service"
-	"com.demo.poc/commons/constants"
-	coreErrors "com.demo.poc/commons/errors/errors"
-	utils "com.demo.poc/commons/restserver/utils"
-	"com.demo.poc/commons/validations"
-	headers "com.demo.poc/commons/validations/headers"
+	"com.demo.poc/commons/core/constants"
+	coreErrors "com.demo.poc/commons/core/errors/errors"
+	utils "com.demo.poc/commons/core/restserver/utils"
+	"com.demo.poc/commons/core/validations"
+	headers "com.demo.poc/commons/core/validations/headers"
 	"github.com/gin-gonic/gin"
 )
 

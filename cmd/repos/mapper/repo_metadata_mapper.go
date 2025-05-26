@@ -5,8 +5,8 @@ import (
 
 	requestDto "com.demo.poc/cmd/repos/dto/request"
 	"com.demo.poc/cmd/repos/repository/metadata/document"
-	"com.demo.poc/commons/constants"
-	repoErrors "com.demo.poc/commons/errors/errors"
+	"com.demo.poc/commons/core/constants"
+	repoErrors "com.demo.poc/commons/core/errors/errors"
 	"github.com/mitchellh/mapstructure"
 )
 

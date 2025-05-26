@@ -5,9 +5,9 @@ import (
 
 	"com.demo.poc/cmd/repos/dto/request"
 	"com.demo.poc/cmd/repos/service"
-	utils "com.demo.poc/commons/restserver/utils"
-	"com.demo.poc/commons/validations"
-	headers "com.demo.poc/commons/validations/headers"
+	utils "com.demo.poc/commons/core/restserver/utils"
+	"com.demo.poc/commons/core/validations"
+	headers "com.demo.poc/commons/core/validations/headers"
 	"github.com/gin-gonic/gin"
 )
 

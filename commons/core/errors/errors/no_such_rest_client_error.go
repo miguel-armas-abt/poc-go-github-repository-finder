@@ -6,12 +6,12 @@ import (
 	errorDto "com.demo.poc/commons/core/errors/dto"
 )
 
-// business and bad requests: 01.02.xx
-func NewProfileNotFoundError(message string) errorDto.GenericError {
+// no such properties and components: 01.01.xx
+func NoSuchRestClientError(message string) errorDto.GenericError {
 	return errorDto.GenericError{
-		HttpStatus: http.StatusNotFound,
+		HttpStatus: http.StatusInternalServerError,
 		Origin:     errorDto.ERROR_ORIGIN_OWN,
-		Code:       "01.02.02",
+		Code:       "01.01.01",
 		Message:    message,
 	}
 }

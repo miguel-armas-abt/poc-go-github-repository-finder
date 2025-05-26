@@ -6,7 +6,7 @@ import (
 	"com.demo.poc/cmd/repos/dto/request"
 	"com.demo.poc/cmd/repos/mapper"
 	repository "com.demo.poc/cmd/repos/repository/metadata"
-	"com.demo.poc/commons/properties"
+	"com.demo.poc/commons/custom/properties"
 )
 
 type repoMetadataServiceImpl struct {

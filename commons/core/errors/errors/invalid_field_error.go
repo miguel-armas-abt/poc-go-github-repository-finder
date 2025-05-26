@@ -7,11 +7,11 @@ import (
 )
 
 // business and bad requests: 01.02.xx
-func NewProfileNotFoundError(message string) errorDto.GenericError {
+func NewInvalidFieldError(message string) errorDto.GenericError {
 	return errorDto.GenericError{
-		HttpStatus: http.StatusNotFound,
+		HttpStatus: http.StatusBadRequest,
 		Origin:     errorDto.ERROR_ORIGIN_OWN,
-		Code:       "01.02.02",
+		Code:       "01.02.01",
 		Message:    message,
 	}
 }

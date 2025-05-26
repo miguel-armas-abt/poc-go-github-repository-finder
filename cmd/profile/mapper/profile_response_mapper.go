@@ -5,8 +5,8 @@ import (
 
 	"com.demo.poc/cmd/profile/dto/response"
 	"com.demo.poc/cmd/profile/repository/profile/document"
-	"com.demo.poc/commons/constants"
-	repoErrors "com.demo.poc/commons/errors/errors"
+	"com.demo.poc/commons/core/constants"
+	repoErrors "com.demo.poc/commons/core/errors/errors"
 	"github.com/mitchellh/mapstructure"
 )
 

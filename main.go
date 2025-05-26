@@ -4,9 +4,9 @@ import (
 	_ "embed"
 	"strings"
 
-	"com.demo.poc/commons/constants"
-	"com.demo.poc/commons/injection"
-	properties "com.demo.poc/commons/properties"
+	"com.demo.poc/commons/core/constants"
+	"com.demo.poc/commons/custom/injection"
+	properties "com.demo.poc/commons/custom/properties"
 )
 
 //go:embed resources/application.yaml

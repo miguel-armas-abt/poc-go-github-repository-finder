@@ -3,7 +3,7 @@ package parameters
 import (
 	"context"
 
-	"com.demo.poc/cmd/profile/repository/profile/document"
+	"poc/cmd/profile/repository/profile/document"
 )
 
 type ProfileRepository interface {

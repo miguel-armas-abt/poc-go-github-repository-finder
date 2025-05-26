@@ -3,10 +3,11 @@ package mapper
 import (
 	"strings"
 
-	"com.demo.poc/cmd/profile/dto/response"
-	"com.demo.poc/cmd/profile/repository/profile/document"
-	"com.demo.poc/commons/core/constants"
-	repoErrors "com.demo.poc/commons/core/errors/errors"
+	"poc/cmd/profile/dto/response"
+	"poc/cmd/profile/repository/profile/document"
+	"poc/commons/core/constants"
+	coreErrors "poc/commons/core/errors/errors"
+
 	"github.com/mitchellh/mapstructure"
 )
 
@@ -14,7 +15,7 @@ func ToResponse(document document.ProfileDocument, multimediaStorage *string) (*
 	var result response.ProfileResponse
 
 	if err := mapstructure.Decode(document, &result); err != nil {
-		return nil, repoErrors.NewMappingError(err.Error())
+		return nil, coreErrors.NewMappingError(err.Error())
 	}
 
 	*multimediaStorage = strings.ReplaceAll(*multimediaStorage, "$USER", document.Username)

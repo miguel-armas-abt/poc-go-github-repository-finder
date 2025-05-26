@@ -3,9 +3,9 @@ package service
 import (
 	"context"
 
-	"com.demo.poc/cmd/repos/dto/response"
-	mergeHelper "com.demo.poc/cmd/repos/helper"
-	params "com.demo.poc/cmd/repos/params"
+	"poc/cmd/repos/dto/response"
+	mergeHelper "poc/cmd/repos/helper"
+	params "poc/cmd/repos/params"
 )
 
 type repoFinderServiceImpl struct {

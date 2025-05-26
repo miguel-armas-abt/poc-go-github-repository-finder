@@ -3,24 +3,21 @@ package service
 import (
 	"context"
 
-	"com.demo.poc/cmd/repos/dto/request"
-	"com.demo.poc/cmd/repos/mapper"
-	repository "com.demo.poc/cmd/repos/repository/metadata"
-	"com.demo.poc/commons/custom/properties"
+	"poc/cmd/repos/dto/request"
+	"poc/cmd/repos/mapper"
+	repository "poc/cmd/repos/repository/metadata"
+	"poc/commons/custom/properties"
 )
 
 type repoMetadataServiceImpl struct {
 	parameterRepository repository.RepoMetadataRepository
-	props               properties.ApplicationProperties
 }
 
 func NewRepoMetadataServiceImpl(
-	parameterRepository repository.RepoMetadataRepository,
-	props properties.ApplicationProperties) ParameterService {
+	parameterRepository repository.RepoMetadataRepository) ParameterService {
 
 	return &repoMetadataServiceImpl{
 		parameterRepository: parameterRepository,
-		props:               props,
 	}
 }
 
@@ -29,7 +26,7 @@ func (service *repoMetadataServiceImpl) InsertRepoMetadata(
 	headers map[string]string,
 	insertRequest request.RepoMetadataInsertRequest) error {
 
-	multimediaStorage := service.props.MultimediaStorage
+	multimediaStorage := properties.Properties.MultimediaStorage
 	request, mapperError := mapper.ToDocument(insertRequest, &multimediaStorage)
 	if mapperError != nil {
 		return mapperError

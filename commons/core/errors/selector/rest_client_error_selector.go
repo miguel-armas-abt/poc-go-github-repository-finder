@@ -1,21 +1,19 @@
 package selector
 
 import (
-	"com.demo.poc/commons/core/constants"
-	errorDto "com.demo.poc/commons/core/errors/dto"
-	"com.demo.poc/commons/custom/properties"
+	"poc/commons/core/constants"
+	errorDto "poc/commons/core/errors/dto"
+	"poc/commons/custom/properties"
 )
 
-type RestClientErrorSelector struct {
-	props *properties.ApplicationProperties
-}
+type RestClientErrorSelector struct{}
 
-func NewRestClientErrorSelector(props *properties.ApplicationProperties) *RestClientErrorSelector {
-	return &RestClientErrorSelector{props: props}
+func NewRestClientErrorSelector() *RestClientErrorSelector {
+	return &RestClientErrorSelector{}
 }
 
 func (selector *RestClientErrorSelector) SelectCode(errorCode, serviceName string) string {
-	restClients := selector.props.RestClients
+	restClients := properties.Properties.RestClients
 
 	if client, exists := restClients[serviceName]; exists {
 		if errorTemplate, found := client.Errors[errorCode]; found {
@@ -29,9 +27,9 @@ func (selector *RestClientErrorSelector) SelectCode(errorCode, serviceName strin
 }
 
 func (selector *RestClientErrorSelector) SelectMessage(errorCode, errorMessage, serviceName string) string {
-	defaultMsg := selector.props.ErrorMessages[errorDto.CODE_DEFAULT]
+	defaultMsg := properties.Properties.ErrorMessages[errorDto.CODE_DEFAULT]
 
-	restClients := selector.props.RestClients
+	restClients := properties.Properties.RestClients
 
 	if client, exists := restClients[serviceName]; exists {
 		if errorTemplate, found := client.Errors[errorCode]; found && errorTemplate.Message != constants.EMPTY {
@@ -45,7 +43,7 @@ func (selector *RestClientErrorSelector) SelectMessage(errorCode, errorMessage, 
 }
 
 func (selector *RestClientErrorSelector) SelectHttpCode(httpCode int, errorCode, serviceName string) int {
-	restClients := selector.props.RestClients
+	restClients := properties.Properties.RestClients
 
 	if client, exists := restClients[serviceName]; exists {
 		if errorTemplate, found := client.Errors[errorCode]; found && errorTemplate.HttpCode != 0 {

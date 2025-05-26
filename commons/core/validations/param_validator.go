@@ -1,9 +1,9 @@
 package validations
 
 import (
-	coreErrors "com.demo.poc/commons/core/errors/errors"
-	selector "com.demo.poc/commons/core/errors/selector"
-	restServerUtils "com.demo.poc/commons/core/restserver/utils"
+	coreErrors "poc/commons/core/errors/errors"
+	selector "poc/commons/core/errors/selector"
+	restServerUtils "poc/commons/core/restserver/utils"
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"

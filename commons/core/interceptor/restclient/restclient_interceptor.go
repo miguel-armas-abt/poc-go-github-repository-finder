@@ -5,10 +5,10 @@ import (
 	"io"
 	"net/http"
 
-	"com.demo.poc/commons/core/logging"
-	logDto "com.demo.poc/commons/core/logging/dto"
-	"com.demo.poc/commons/core/tracing"
-	"com.demo.poc/commons/custom/properties"
+	"poc/commons/core/logging"
+	logDto "poc/commons/core/logging/dto"
+	"poc/commons/core/tracing"
+	"poc/commons/custom/properties"
 )
 
 type LoggingRoundTripper struct {

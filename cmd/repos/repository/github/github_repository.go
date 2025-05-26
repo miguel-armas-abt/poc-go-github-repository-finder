@@ -3,7 +3,7 @@ package repository
 import (
 	"context"
 
-	"com.demo.poc/cmd/repos/repository/github/wrapper/response"
+	"poc/cmd/repos/repository/github/wrapper/response"
 )
 
 type GitHubRepository interface {

@@ -3,7 +3,7 @@ package errors
 import (
 	"net/http"
 
-	errorDto "com.demo.poc/commons/core/errors/dto"
+	errorDto "poc/commons/core/errors/dto"
 )
 
 // no such properties and components: 01.01.xx

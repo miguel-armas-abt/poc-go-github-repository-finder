@@ -3,11 +3,11 @@ package properties
 import (
 	"strings"
 
-	"com.demo.poc/commons/core/constants"
-	coreErrors "com.demo.poc/commons/core/errors/errors"
-	logging "com.demo.poc/commons/custom/properties/logging"
-	mongoDb "com.demo.poc/commons/custom/properties/mongo"
-	"com.demo.poc/commons/custom/properties/restclient"
+	"poc/commons/core/constants"
+	coreErrors "poc/commons/core/errors/errors"
+	logging "poc/commons/custom/properties/logging"
+	mongoDb "poc/commons/custom/properties/mongo"
+	"poc/commons/custom/properties/restclient"
 )
 
 type ApplicationProperties struct {

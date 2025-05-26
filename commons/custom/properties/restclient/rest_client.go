@@ -1,6 +1,6 @@
 package restclient
 
-import "com.demo.poc/commons/core/tracing"
+import "poc/commons/core/tracing"
 
 type RestClient struct {
 	Request RequestTemplate                    `mapstructure:"request"`

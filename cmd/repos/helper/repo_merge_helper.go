@@ -5,13 +5,13 @@ import (
 
 	"golang.org/x/sync/errgroup"
 
-	dto "com.demo.poc/cmd/repos/dto/response"
-	"com.demo.poc/cmd/repos/mapper"
-	params "com.demo.poc/cmd/repos/params"
-	repoRepository "com.demo.poc/cmd/repos/repository/github"
-	repoWrapper "com.demo.poc/cmd/repos/repository/github/wrapper/response"
-	paramRepository "com.demo.poc/cmd/repos/repository/metadata"
-	paramDocument "com.demo.poc/cmd/repos/repository/metadata/document"
+	dto "poc/cmd/repos/dto/response"
+	"poc/cmd/repos/mapper"
+	params "poc/cmd/repos/params"
+	repoRepository "poc/cmd/repos/repository/github"
+	repoWrapper "poc/cmd/repos/repository/github/wrapper/response"
+	paramRepository "poc/cmd/repos/repository/metadata"
+	paramDocument "poc/cmd/repos/repository/metadata/document"
 )
 
 type RepoMergeHelper struct {

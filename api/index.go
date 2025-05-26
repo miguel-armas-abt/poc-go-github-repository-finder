@@ -4,7 +4,7 @@ import (
 	_ "embed"
 	"net/http"
 
-	"com.demo.poc/commons/injection"
+	"poc/commons/injection"
 )
 
 //go:embed application.yaml

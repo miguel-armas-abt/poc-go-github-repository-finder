@@ -4,18 +4,19 @@ import (
 	"net/http"
 	"time"
 
-	gitHubErrorExtractor "com.demo.poc/cmd/repos/repository/github/error"
-	coreConfig "com.demo.poc/commons/custom/config"
+	gitHubErrorExtractor "poc/cmd/repos/repository/github/error"
+	coreConfig "poc/commons/custom/config"
 
-	errorSelector "com.demo.poc/commons/core/errors/selector"
-	errorInterceptor "com.demo.poc/commons/core/interceptor/errors"
-	"com.demo.poc/commons/core/interceptor/restclient"
-	"com.demo.poc/commons/core/interceptor/restserver"
-	"com.demo.poc/commons/core/logging"
-	restClientErrors "com.demo.poc/commons/core/restclient/errors"
-	properties "com.demo.poc/commons/custom/properties"
+	errorSelector "poc/commons/core/errors/selector"
+	errorInterceptor "poc/commons/core/interceptor/errors"
+	"poc/commons/core/interceptor/restclient"
+	"poc/commons/core/interceptor/restserver"
+	"poc/commons/core/logging"
+	restClientErrors "poc/commons/core/restclient/errors"
+	"poc/commons/custom/properties"
 
-	"com.demo.poc/commons/core/validations"
+	"poc/commons/core/validations"
+
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
@@ -28,7 +29,7 @@ func NewEngine(yamlBytes []byte) *gin.Engine {
 
 	props := &properties.Properties
 
-	responseErrorSelector := errorSelector.NewResponseErrorSelector(props)
+	responseErrorSelector := errorSelector.NewResponseErrorSelector()
 	interceptor := errorInterceptor.NewErrorInterceptor(responseErrorSelector)
 
 	corsOrigins := props.Server.CorsOrigins
@@ -48,7 +49,7 @@ func NewEngine(yamlBytes []byte) *gin.Engine {
 		}),
 	)
 
-	restClientErrorSelector := errorSelector.NewRestClientErrorSelector(&properties.Properties)
+	restClientErrorSelector := errorSelector.NewRestClientErrorSelector()
 	restClientErrorExtractors := []restClientErrors.RestClientErrorExtractor{
 		restClientErrors.DefaultExtractor{},
 		gitHubErrorExtractor.GitHubErrorExtractor{},
@@ -59,11 +60,11 @@ func NewEngine(yamlBytes []byte) *gin.Engine {
 	paramValidator := validations.NewParamValidator(coreValidator, responseErrorSelector)
 	bodyValidator := validations.NewBodyValidator(coreValidator)
 
-	mongoClient := coreConfig.NewMongoConnection(props)
+	mongoClient := coreConfig.NewMongoConnection()
 	mongoInstance := mongoClient.Database(props.Mongo.Database)
 
-	InjectReposConfig(engine, props, paramValidator, bodyValidator, &restClientErrorHandler, mongoInstance)
-	InjectProfileConfig(engine, props, paramValidator, bodyValidator, mongoInstance)
+	InjectReposConfig(engine, paramValidator, bodyValidator, &restClientErrorHandler, mongoInstance)
+	InjectProfileConfig(engine, paramValidator, bodyValidator, mongoInstance)
 
 	return engine
 }

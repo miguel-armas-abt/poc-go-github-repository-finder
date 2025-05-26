@@ -3,8 +3,8 @@ package service
 import (
 	"context"
 
-	"com.demo.poc/cmd/profile/dto/request"
-	"com.demo.poc/cmd/profile/dto/response"
+	"poc/cmd/profile/dto/request"
+	"poc/cmd/profile/dto/response"
 )
 
 type ProfileService interface {

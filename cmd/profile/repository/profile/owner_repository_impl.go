@@ -5,8 +5,8 @@ import (
 	"errors"
 	"time"
 
-	profileErrors "com.demo.poc/cmd/profile/errors"
-	"com.demo.poc/cmd/profile/repository/profile/document"
+	profileErrors "poc/cmd/profile/errors"
+	"poc/cmd/profile/repository/profile/document"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"

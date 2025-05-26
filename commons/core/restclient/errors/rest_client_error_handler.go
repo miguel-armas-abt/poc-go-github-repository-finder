@@ -1,9 +1,10 @@
 package errors
 
 import (
-	"com.demo.poc/commons/core/constants"
-	errorDto "com.demo.poc/commons/core/errors/dto"
-	"com.demo.poc/commons/core/errors/selector"
+	"poc/commons/core/constants"
+	errorDto "poc/commons/core/errors/dto"
+	"poc/commons/core/errors/selector"
+
 	"github.com/go-resty/resty/v2"
 )
 

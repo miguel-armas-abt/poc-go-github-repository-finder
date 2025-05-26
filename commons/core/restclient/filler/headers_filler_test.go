@@ -3,8 +3,9 @@ package filler
 import (
 	"testing"
 
-	"com.demo.poc/commons/custom/properties"
-	"com.demo.poc/commons/custom/properties/restclient"
+	"poc/commons/custom/properties"
+	"poc/commons/custom/properties/restclient"
+
 	"github.com/stretchr/testify/require"
 )
 

@@ -4,8 +4,8 @@ import (
 	"context"
 	"time"
 
-	params "com.demo.poc/cmd/repos/params"
-	"com.demo.poc/cmd/repos/repository/metadata/document"
+	params "poc/cmd/repos/params"
+	"poc/cmd/repos/repository/metadata/document"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"

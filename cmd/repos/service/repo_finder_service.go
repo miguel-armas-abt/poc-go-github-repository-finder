@@ -3,8 +3,8 @@ package service
 import (
 	"context"
 
-	"com.demo.poc/cmd/repos/dto/response"
-	params "com.demo.poc/cmd/repos/params"
+	"poc/cmd/repos/dto/response"
+	params "poc/cmd/repos/params"
 )
 
 type RepoFinderService interface {

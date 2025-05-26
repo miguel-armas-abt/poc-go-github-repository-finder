@@ -5,8 +5,9 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	errorSelector "com.demo.poc/commons/core/errors/selector"
-	properties "com.demo.poc/commons/custom/properties"
+	errorSelector "poc/commons/core/errors/selector"
+	properties "poc/commons/custom/properties"
+
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
 	"github.com/stretchr/testify/require"

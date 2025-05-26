@@ -3,11 +3,12 @@ package rest
 import (
 	"net/http"
 
-	params "com.demo.poc/cmd/repos/params"
-	"com.demo.poc/cmd/repos/service"
-	utils "com.demo.poc/commons/core/restserver/utils"
-	"com.demo.poc/commons/core/validations"
-	headers "com.demo.poc/commons/core/validations/headers"
+	params "poc/cmd/repos/params"
+	"poc/cmd/repos/service"
+	utils "poc/commons/core/restserver/utils"
+	"poc/commons/core/validations"
+	headers "poc/commons/core/validations/headers"
+
 	"github.com/gin-gonic/gin"
 )
 

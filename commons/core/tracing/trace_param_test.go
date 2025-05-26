@@ -5,7 +5,8 @@ import (
 	"strings"
 	"testing"
 
-	"com.demo.poc/commons/core/constants"
+	"poc/commons/core/constants"
+
 	"github.com/stretchr/testify/require"
 )
 

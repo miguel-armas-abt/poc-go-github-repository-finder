@@ -1,4 +1,4 @@
-module com.demo.poc
+module poc
 
 go 1.23.0
 

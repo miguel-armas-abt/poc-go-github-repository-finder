@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"strings"
 
-	"com.demo.poc/commons/core/constants"
+	"poc/commons/core/constants"
 )
 
 const (

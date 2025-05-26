@@ -3,8 +3,8 @@ package filler
 import (
 	"strings"
 
-	"com.demo.poc/commons/core/tracing"
-	template "com.demo.poc/commons/custom/properties/restclient"
+	"poc/commons/core/tracing"
+	template "poc/commons/custom/properties/restclient"
 )
 
 func FillHeaders(incoming map[string]string, restClient *template.RestClient) map[string]string {

@@ -1,17 +1,18 @@
 package validations
 
 import (
-	"com.demo.poc/commons/core/errors/errors"
+	"poc/commons/core/errors/errors"
+
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
 )
 
 type BodyValidator struct {
-	coreValidator *validator.Validate
+	playgroundValidator *validator.Validate
 }
 
 func NewBodyValidator(coreValidator *validator.Validate) *BodyValidator {
-	return &BodyValidator{coreValidator: coreValidator}
+	return &BodyValidator{playgroundValidator: coreValidator}
 }
 
 func ValidateBodyAndGet[T any](context *gin.Context, bodyValidator *BodyValidator) (T, bool) {
@@ -44,5 +45,5 @@ func (bodyValidator *BodyValidator) bindJSON(context *gin.Context, obj interface
 }
 
 func (bodyValidator *BodyValidator) validateStruct(obj interface{}) error {
-	return bodyValidator.coreValidator.Struct(obj)
+	return bodyValidator.playgroundValidator.Struct(obj)
 }

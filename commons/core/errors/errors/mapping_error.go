@@ -3,7 +3,7 @@ package errors
 import (
 	"net/http"
 
-	errorDto "com.demo.poc/commons/core/errors/dto"
+	errorDto "poc/commons/core/errors/dto"
 )
 
 // system: 01.00.xx

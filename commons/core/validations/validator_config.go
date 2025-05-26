@@ -3,7 +3,8 @@ package validations
 import (
 	"regexp"
 
-	"com.demo.poc/commons/core/tracing"
+	"poc/commons/core/tracing"
+
 	"github.com/go-playground/validator/v10"
 )
 

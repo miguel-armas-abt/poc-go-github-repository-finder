@@ -3,7 +3,7 @@ package service
 import (
 	"context"
 
-	"com.demo.poc/cmd/repos/dto/request"
+	"poc/cmd/repos/dto/request"
 )
 
 type ParameterService interface {

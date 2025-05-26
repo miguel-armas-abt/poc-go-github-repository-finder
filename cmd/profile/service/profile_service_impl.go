@@ -3,11 +3,11 @@ package service
 import (
 	"context"
 
-	"com.demo.poc/cmd/profile/dto/request"
-	"com.demo.poc/cmd/profile/dto/response"
-	"com.demo.poc/cmd/profile/mapper"
-	repository "com.demo.poc/cmd/profile/repository/profile"
-	"com.demo.poc/commons/custom/properties"
+	"poc/cmd/profile/dto/request"
+	"poc/cmd/profile/dto/response"
+	"poc/cmd/profile/mapper"
+	repository "poc/cmd/profile/repository/profile"
+	"poc/commons/custom/properties"
 )
 
 type profileServiceImpl struct {

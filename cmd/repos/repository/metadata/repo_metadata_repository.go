@@ -3,8 +3,8 @@ package parameters
 import (
 	"context"
 
-	params "com.demo.poc/cmd/repos/params"
-	"com.demo.poc/cmd/repos/repository/metadata/document"
+	params "poc/cmd/repos/params"
+	"poc/cmd/repos/repository/metadata/document"
 )
 
 type RepoMetadataRepository interface {

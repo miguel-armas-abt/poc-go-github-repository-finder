@@ -7,23 +7,21 @@ import (
 
 	"github.com/go-resty/resty/v2"
 
-	errorWrapper "com.demo.poc/cmd/repos/repository/github/error"
-	"com.demo.poc/cmd/repos/repository/github/wrapper/response"
-	restClientErrors "com.demo.poc/commons/core/restclient/errors"
-	"com.demo.poc/commons/core/restclient/filler"
-	"com.demo.poc/commons/custom/properties"
+	errorWrapper "poc/cmd/repos/repository/github/error"
+	"poc/cmd/repos/repository/github/wrapper/response"
+	restClientErrors "poc/commons/core/restclient/errors"
+	"poc/commons/core/restclient/filler"
+	"poc/commons/custom/properties"
 )
 
 const SERVICE_NAME = "github-users"
 
 type gitHubRepositoryImpl struct {
 	restyClient  *resty.Client
-	properties   *properties.ApplicationProperties
 	errorHandler *restClientErrors.RestclientErrorHandler
 }
 
 func NewGitHubRepositoryImpl(
-	properties *properties.ApplicationProperties,
 	errorHandler *restClientErrors.RestclientErrorHandler) GitHubRepository {
 
 	httpClient := http.DefaultClient
@@ -32,7 +30,6 @@ func NewGitHubRepositoryImpl(
 
 	return &gitHubRepositoryImpl{
 		restyClient:  restyClient,
-		properties:   properties,
 		errorHandler: errorHandler,
 	}
 }

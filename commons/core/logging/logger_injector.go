@@ -4,9 +4,10 @@ import (
 	"fmt"
 	"strings"
 
-	"com.demo.poc/commons/core/constants"
-	logDto "com.demo.poc/commons/core/logging/dto"
-	"com.demo.poc/commons/core/tracing"
+	"poc/commons/core/constants"
+	logDto "poc/commons/core/logging/dto"
+	"poc/commons/core/tracing"
+
 	"github.com/sirupsen/logrus"
 )
 

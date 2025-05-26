@@ -3,8 +3,8 @@ package errors
 import (
 	"encoding/json"
 
-	"com.demo.poc/commons/core/constants"
-	errorDto "com.demo.poc/commons/core/errors/dto"
+	"poc/commons/core/constants"
+	errorDto "poc/commons/core/errors/dto"
 )
 
 type RestClientErrorExtractor interface {

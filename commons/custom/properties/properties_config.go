@@ -3,6 +3,7 @@ package properties
 import (
 	"bytes"
 	"fmt"
+	"poc/commons/core/constants"
 	"strings"
 
 	"github.com/spf13/viper"
@@ -18,7 +19,7 @@ func Init(yamlBytes []byte) {
 		panic(fmt.Sprintf("Error reading embedded application.yaml: %v", err))
 	}
 
-	reader.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
+	reader.SetEnvKeyReplacer(strings.NewReplacer(constants.DOT, constants.UNDERSCORE))
 	reader.AutomaticEnv()
 
 	environmentVariables := []struct{ key, env string }{

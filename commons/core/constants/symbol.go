@@ -3,6 +3,7 @@ package constants
 const EMPTY = ""
 const COLON = ":"
 const MIDDLE_DASH = "-"
+const UNDERSCORE = "-"
 const EQUAL = "="
 const COMMA = ","
 const SPACE = " "

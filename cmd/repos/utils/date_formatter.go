@@ -1,14 +1,13 @@
 package utils
 
 import (
+	"fmt"
 	"time"
-
-	"github.com/goodsign/monday"
 )
 
 func FormatDate(date string) string {
 	if result, err := time.Parse(time.RFC3339, date); err == nil {
-		return monday.Format(result, "02 de January de 2006", monday.LocaleEsES)
+		return fmt.Sprintf("%02d/%02d/%04d", result.Month(), result.Day(), result.Year())
 	} else {
 		return date
 	}

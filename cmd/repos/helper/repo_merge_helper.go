@@ -11,7 +11,7 @@ import (
 	repoRepository "poc/cmd/repos/repository/github"
 	repoWrapper "poc/cmd/repos/repository/github/wrapper/response"
 	paramRepository "poc/cmd/repos/repository/metadata"
-	paramDocument "poc/cmd/repos/repository/metadata/document"
+	metadataDocument "poc/cmd/repos/repository/metadata/document"
 )
 
 type RepoMergeHelper struct {
@@ -38,7 +38,7 @@ func (helper *RepoMergeHelper) MergeRepositoriesByProfileAndLabel(
 	var (
 		group        errgroup.Group
 		repositories []repoWrapper.RepoResponseWrapper
-		parameters   []*paramDocument.RepoMetadataDocument
+		parameters   []*metadataDocument.RepoMetadataDocument
 		err          error
 	)
 
@@ -56,7 +56,7 @@ func (helper *RepoMergeHelper) MergeRepositoriesByProfileAndLabel(
 		return nil, err
 	}
 
-	parameterMap := make(map[string]*paramDocument.RepoMetadataDocument, len(parameters))
+	parameterMap := make(map[string]*metadataDocument.RepoMetadataDocument, len(parameters))
 	for _, param := range parameters {
 		parameterMap[param.RepositoryName] = param
 	}
@@ -66,13 +66,12 @@ func (helper *RepoMergeHelper) MergeRepositoriesByProfileAndLabel(
 	var count int = 0
 	for _, repo := range repositories {
 		if document, exists := parameterMap[repo.Name]; exists {
-			response, err := mapper.ToResponseDto(repo)
+			response, err := mapper.ToResponseDto(repo, *document)
 
 			if err != nil {
 				return nil, err
 			}
 
-			response.ImageUrl = document.ImageUrl
 			result[count] = *response
 			count++
 		}

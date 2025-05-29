@@ -7,4 +7,5 @@ type RepoResponseDto struct {
 	Url         string `json:"url"`
 	Watchers    int    `json:"watchersCount"`
 	ImageUrl    string `json:"imageUrl"`
+	Priority    string `json:"priority"`
 }

@@ -5,4 +5,5 @@ type RepoMetadataDocument struct {
 	Profile        string `bson:"profile"`
 	ImageUrl       string `bson:"imageUrl"`
 	Label          string `bson:"label"`
+	Priority       int    `bson:"priority"`
 }

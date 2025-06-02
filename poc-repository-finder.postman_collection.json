@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "aff5981d-0f8a-4f56-aab5-fc9e72a21d4c",
+		"_postman_id": "8c826597-b085-48d9-b536-bf5cffb8dd6a",
 		"name": "poc-repository-finder",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "13773998"
+		"_exporter_id": "33527392"
 	},
 	"item": [
 		{
@@ -67,7 +67,7 @@
 					"variable": [
 						{
 							"key": "profile",
-							"value": "miguelarmasabt"
+							"value": "miguel-armas-abt"
 						}
 					]
 				}
@@ -101,7 +101,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"repositoryName\": \"roadmap-kafka\",\r\n    \"profile\": \"miguel-armas-abt\",\r\n    \"label\": \"roadmap\"\r\n}",
+					"raw": "{\r\n    \"repositoryName\": \"poc-jmeter-performance\",\r\n    \"profile\": \"miguel-armas-abt\",\r\n    \"label\": \"medium\",\r\n    \"priority\": 9\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -230,6 +230,41 @@
 				}
 			},
 			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					"function setTraceParent() {\r",
+					"    const hex = n => [...Array(n)].reduce(s => s + (Math.random()*16|0).toString(16), '');\r",
+					"    const traceId = Math.floor(Date.now()/1e3).toString(16).padStart(8,'0') + hex(24);\r",
+					"\r",
+					"    let spanId;\r",
+					"    do { spanId = hex(16); } while (/^0+$/.test(spanId));\r",
+					"\r",
+					"    //W3C Estandar\r",
+					"    const traceParent = `00-${traceId}-${spanId}-01`;\r",
+					"    pm.globals.set(\"traceParent\", traceParent);\r",
+					"}\r",
+					"\r",
+					"setTraceParent();\r",
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
 		}
 	]
 }
